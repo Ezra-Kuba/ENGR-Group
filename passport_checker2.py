@@ -12,7 +12,7 @@
 #Asking for file
 thefile = input('Enter the name of the file: ')
 
-#Initializing a lot of the checks
+#Initializing a lot of the checks that need lists
  
 Valid_byr_List = [] #Birth year
 Valid_iyr_List = [] #Issue year
