@@ -10,8 +10,8 @@
 # Date:         08 11 2023
 
 
-import os
-os.chdir(r'C:\Users\ezrag\OneDrive\Desktop\VScode\VS_labs')
+#import os
+#os.chdir(r'C:\Users\ezrag\OneDrive\Desktop\VScode\VS_labs')
 
 
 #Getting file name
@@ -135,8 +135,8 @@ for passport in passlist:
             thing = False
             break
     if thing == True:
-        #with open('valid_passports.txt' , 'a') as Valid_Pass:
-        #    Valid_Pass.write(f'{passport}\n\n')
+        with open('valid_passports.txt' , 'a') as Valid_Pass:
+            Valid_Pass.write(f'{passport}\n\n')
         Valid_Pass_List.append(passport)
         #count += 1
 
@@ -154,7 +154,7 @@ for Valid_P in Valid_Pass_List:     #I am trying to split the string of each "pe
         Big_Bool = True     #if this holds through all iterations, then the passport is valid
 
         ID_Val = ID_pair.split(':')     #splitting to make [IDtype, Val]
-        #print(f'\nThis should be a list with ID,Val: {ID_Val}')
+        #print(f'This should be a list with ID,Val: {ID_Val}')
 
 
 #So I feel like this deserves a longer explanation
@@ -169,27 +169,34 @@ for Valid_P in Valid_Pass_List:     #I am trying to split the string of each "pe
         if ID_Val[0] in Check_Dict:         #If IDtype is in dict of IDtypes
 
             if ID_Val[0] == 'hgt':          #special case for height, due to cm and inches
-                
-                if len(ID_Val[1]) == 5:     #cm is always 5 chars, so this is the case
+                if len(ID_Val[1]) < 4:
+                    Bool = False
+                elif len(ID_Val[1]) == 5:     #cm is always 5 chars, so this is the case
                     cm_val = ID_Val[1].replace('cm','') #taking cm away so we just have a num as a string
                     #print(f'this is cm_val: {cm_val}')
                     if cm_val in Valid_cm_List:     #if the number that is a string
                                                     #is in the valid list, it passes
                                                     #Bool is just var name bc it 
                                                     #evaluates to T or F
+                        #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
                         Bool = True
                     else:
                         Bool = False
+                        #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
                 elif len(ID_Val[1]) == 4:   #inches always 4 chars
                     inches_val = ID_Val[1].replace('in','')     #taking in away
                     #print(f'this is inches_val: {inches_val}')
                     if inches_val in Valid_inches_List:
                         Bool = True
+                        #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
                     else:
                         Bool = False
+                        #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
             else:
                 Bool = Check_Dict[f'{ID_Val[0]}'](ID_Val[1])    
                 #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
+        else:
+            continue
 
         if Bool == False:
             Big_Bool = False
