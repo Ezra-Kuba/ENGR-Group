@@ -8,8 +8,8 @@
 # Section:      ENGR-102:533,557
 # Assignment:   Lab 11.09.1
 # Date:         08 11 2023
-#so this is my version
 
+#Getting file name
 thefile = input('Enter the name of the file: ')
 
 #Initializing a lot of the checks that need lists
