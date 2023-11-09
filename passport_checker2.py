@@ -150,32 +150,45 @@ for Valid_P in Valid_Pass_List:     #I am trying to split the string of each "pe
     Dict4Pass_List = Valid_P3.split(' ')
     #print(f'This should be each element in a list:\n{Dict4Pass_List}\n')
 
-    for ID_pair in Dict4Pass_List:
-        Big_Bool = True
+    for ID_pair in Dict4Pass_List:      #iterating through each IDtype:value pair
+        Big_Bool = True     #if this holds through all iterations, then the passport is valid
 
-        ID_Val = ID_pair.split(':')
+        ID_Val = ID_pair.split(':')     #splitting to make [IDtype, Val]
         #print(f'\nThis should be a list with ID,Val: {ID_Val}')
 
-        if ID_Val[0] in Check_Dict:
 
-            if ID_Val[0] == 'hgt':
+#So I feel like this deserves a longer explanation
+#1) It checks if the IDtype is in the Dict
+#2) Then it checks if the IDtype is height, 'hgt', bc height could be in cm or in, we'll come back to this
+#3) If it is NOT height, it runs a test that ties the zeroth index of the ID_Pair 
+#To the first index of the ID_Pair(The value)
+#4) It then runs a check using the corresponding function, if True, keep going, if false, move to next
+#FOR HEIGHT, checks if it is cm or in, then takes the cm or in out, then runs the right function
+
+
+        if ID_Val[0] in Check_Dict:         #If IDtype is in dict of IDtypes
+
+            if ID_Val[0] == 'hgt':          #special case for height, due to cm and inches
                 
-                if len(ID_Val[1]) == 5:
-                    cm_val = ID_Val[1].replace('cm','')
+                if len(ID_Val[1]) == 5:     #cm is always 5 chars, so this is the case
+                    cm_val = ID_Val[1].replace('cm','') #taking cm away so we just have a num as a string
                     #print(f'this is cm_val: {cm_val}')
-                    if cm_val in Valid_cm_List:
+                    if cm_val in Valid_cm_List:     #if the number that is a string
+                                                    #is in the valid list, it passes
+                                                    #Bool is just var name bc it 
+                                                    #evaluates to T or F
                         Bool = True
                     else:
                         Bool = False
-                elif len(ID_Val[1]) == 4:
-                    inches_val = ID_Val[1].replace('in','')
+                elif len(ID_Val[1]) == 4:   #inches always 4 chars
+                    inches_val = ID_Val[1].replace('in','')     #taking in away
                     #print(f'this is inches_val: {inches_val}')
                     if inches_val in Valid_inches_List:
                         Bool = True
                     else:
                         Bool = False
             else:
-                Bool = Check_Dict[f'{ID_Val[0]}'](ID_Val[1])
+                Bool = Check_Dict[f'{ID_Val[0]}'](ID_Val[1])    
                 #print(f'{ID_Val[0]} is {ID_Val[1]}, this evaluates to {Bool} based on the parameters given\n')
 
         if Bool == False:
