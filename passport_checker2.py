@@ -8,8 +8,8 @@
 # Section:      ENGR-102:533,557
 # Assignment:   Lab 11.09.1
 # Date:         08 11 2023
+#so this is my version
 
-#Asking for file
 thefile = input('Enter the name of the file: ')
 
 #Initializing a lot of the checks that need lists
@@ -65,7 +65,7 @@ def inches_check(inches):           #Function for Inches check
         return False
 
 
-for i in range(10):         #Setting up Hair color checks
+for i in range(10):         #Setting up Hair Color checks
     Valid_Nums_List.append(i)
 def hcl_check(hcl):
     if hcl[0] not in Valid_Nums_List:   #If the first character is not a number, it is invalid
